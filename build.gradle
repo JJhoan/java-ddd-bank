@@ -1,0 +1,102 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+allprojects {
+
+	apply plugin: 'java'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'org.springframework.boot'
+
+	sourceCompatibility = 17
+	targetCompatibility = 17
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+	}
+
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+}
+
+subprojects {
+	group = "com.bank.${rootProject.name}"
+
+	sourceSets {
+		main {
+			java { srcDirs = ['main'] }
+			resources { srcDirs = ['main/resources'] }
+		}
+
+		test {
+			java { srcDirs = ['test'] }
+			resources { srcDirs = ['test/resources'] }
+		}
+	}
+
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
+
+		testImplementation rootProject.sourceSets.main.output
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+		if (project.name != "shared") {
+			implementation project(":shared")
+			testImplementation project(":shared").sourceSets.test.output
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java { srcDirs = ['apps/main'] }
+		resources { srcDirs = ['apps/main/resources'] }
+	}
+
+	test {
+		java { srcDirs = ['apps/test'] }
+		resources { srcDirs = ['apps/test/resources'] }
+	}
+}
+
+apply plugin: 'application'
+
+mainClassName = 'com.bank.apps.Starter'
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation project(":shared")
+	implementation project(":mooc")
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation project(":shared").sourceSets.test.output
+}
+
+group = 'com.bank'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
