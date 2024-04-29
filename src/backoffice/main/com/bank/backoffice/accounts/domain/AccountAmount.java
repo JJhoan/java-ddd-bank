@@ -1,11 +1,13 @@
-package com.bank.backoffice.account.domain;
+package com.bank.backoffice.accounts.domain;
 
 public class AccountAmount {
 
     private Double value;
 
     private AccountAmount( Double value ) {
-        this.value = value;
+
+    }
+    private AccountAmount( ) {
     }
 
     public Double value() {

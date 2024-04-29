@@ -1,4 +1,4 @@
-package com.bank.backoffice.account.application.deposite_money;
+package com.bank.backoffice.accounts.application.deposite_money;
 
 import com.bank.shared.domain.UseCase;
 

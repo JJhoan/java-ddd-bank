@@ -1,4 +1,4 @@
-package com.bank.backoffice.account.domain;
+package com.bank.backoffice.accounts.domain;
 
 import java.util.Optional;
 

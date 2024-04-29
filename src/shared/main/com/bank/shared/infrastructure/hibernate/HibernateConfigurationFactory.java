@@ -25,10 +25,11 @@ public final class HibernateConfigurationFactory {
     }
 
     public PlatformTransactionManager hibernateTransactionManager(LocalSessionFactoryBean sessionFactory) {
-        //HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory.getObject());
-        //transactionManager.setSessionFactory(sessionFactory.getObject());
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory.getObject());
 
-        return new HibernateTransactionManager(sessionFactory.getObject());
+        return transactionManager;
+        //return new HibernateTransactionManager(sessionFactory.getObject());
     }
 
     public LocalSessionFactoryBean sessionFactory(String contextName, DataSource dataSource) {
@@ -51,10 +52,10 @@ public final class HibernateConfigurationFactory {
         String password
     ) throws IOException {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(
             String.format(
-                "jdbc:mysql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+                "jdbc:postgresql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
                 host,
                 port,
                 databaseName
@@ -63,13 +64,13 @@ public final class HibernateConfigurationFactory {
         dataSource.setUsername(username);
         dataSource.setPassword(password);
 
-        Resource mysqlResource = resourceResolver.getResource(String.format(
+        Resource postgresResource = resourceResolver.getResource(String.format(
             "classpath:database/%s.sql",
             databaseName
         ));
-        String mysqlSentences = new Scanner(mysqlResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
+        String postgresSentences = new Scanner(postgresResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
 
-        dataSource.setConnectionInitSqls(new ArrayList<>(Arrays.asList(mysqlSentences.split(";"))));
+        dataSource.setConnectionInitSqls(new ArrayList<>(Arrays.asList(postgresSentences.split(";"))));
 
         return dataSource;
     }
@@ -122,7 +123,7 @@ public final class HibernateConfigurationFactory {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(AvailableSettings.HBM2DDL_AUTO, "none");
         hibernateProperties.put(AvailableSettings.SHOW_SQL, "false");
-        hibernateProperties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
+        hibernateProperties.put(AvailableSettings.TRANSFORM_HBM_XML, "true");
 
         return hibernateProperties;
     }

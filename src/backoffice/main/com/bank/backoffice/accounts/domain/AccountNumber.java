@@ -1,15 +1,12 @@
-package com.bank.backoffice.account.domain;
-
-import lombok.Value;
+package com.bank.backoffice.accounts.domain;
 
 import java.util.regex.Pattern;
 
-public class AccountNumber {
+public record AccountNumber(String value) {
 
     private static Pattern ACCOUNT_NUMBER_REGEX = Pattern.compile( "^\\d+$" );
-    private String value;
 
-    private AccountNumber(String value) {
+    public AccountNumber(String value) {
         ensureValidAccountNumber(value);
         this.value = value;
     }
@@ -18,7 +15,4 @@ public class AccountNumber {
         value.matches( "^\\d+$" );
     }
 
-    public String value() {
-        return value;
-    }
 }

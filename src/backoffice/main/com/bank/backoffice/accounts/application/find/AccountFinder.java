@@ -1,11 +1,10 @@
-package com.bank.backoffice.account.application.find;
+package com.bank.backoffice.accounts.application.find;
 
-import com.bank.backoffice.account.application.AccountResponse;
-import com.bank.backoffice.account.domain.AccountId;
-import com.bank.backoffice.account.domain.AccountNotExist;
-import com.bank.backoffice.account.domain.AccountRepository;
+import com.bank.backoffice.accounts.application.AccountResponse;
+import com.bank.backoffice.accounts.domain.AccountId;
+import com.bank.backoffice.accounts.domain.AccountNotExist;
+import com.bank.backoffice.accounts.domain.AccountRepository;
 import com.bank.shared.domain.Service;
-import com.bank.shared.domain.UseCase;
 
 @Service
 public final class AccountFinder {

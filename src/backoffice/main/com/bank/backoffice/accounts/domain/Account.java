@@ -1,4 +1,4 @@
-package com.bank.backoffice.account.domain;
+package com.bank.backoffice.accounts.domain;
 
 import java.util.Objects;
 
@@ -34,10 +34,16 @@ public final class Account {
 
     @Override
     public boolean equals( Object o ) {
-        if ( this == o ) return true;
-        if ( o == null || getClass() != o.getClass() ) return false;
+        if ( this == o ) {
+            return true;
+        }
+        if ( o == null || getClass() != o.getClass() ) {
+            return false;
+        }
         Account account = ( Account ) o;
-        return Objects.equals( id, account.id ) && Objects.equals( number, account.number ) && Objects.equals( amount, account.amount );
+        return Objects.equals( id, account.id ) &&
+                Objects.equals( number, account.number ) &&
+                Objects.equals( amount, account.amount );
     }
 
     @Override
