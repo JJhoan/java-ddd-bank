@@ -10,16 +10,16 @@ public final class Criteria {
 
     public Criteria(Filters filters, Order order, Optional<Integer> limit, Optional<Integer> offset) {
         this.filters = filters;
-        this.order   = order;
-        this.limit   = limit;
-        this.offset  = offset;
+        this.order = order;
+        this.limit = limit;
+        this.offset = offset;
     }
 
     public Criteria(Filters filters, Order order) {
         this.filters = filters;
-        this.order   = order;
-        this.limit   = Optional.empty();
-        this.offset  = Optional.empty();
+        this.order = order;
+        this.limit = Optional.empty();
+        this.offset = Optional.empty();
     }
 
     public Filters filters() {
@@ -44,11 +44,11 @@ public final class Criteria {
 
     public String serialize() {
         return String.format(
-            "%s~~%s~~%s~~%s",
-            filters.serialize(),
-            order.serialize(),
-            offset.orElse(0),
-            limit.orElse(0)
+                "%s~~%s~~%s~~%s",
+                filters.serialize(),
+                order.serialize(),
+                offset.orElse(0),
+                limit.orElse(0)
         );
     }
 }

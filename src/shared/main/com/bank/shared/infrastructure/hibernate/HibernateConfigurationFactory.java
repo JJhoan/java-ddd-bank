@@ -45,28 +45,28 @@ public final class HibernateConfigurationFactory {
     }
 
     public DataSource dataSource(
-        String host,
-        Integer port,
-        String databaseName,
-        String username,
-        String password
+            String host,
+            Integer port,
+            String databaseName,
+            String username,
+            String password
     ) throws IOException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl(
-            String.format(
-                "jdbc:postgresql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
-                host,
-                port,
-                databaseName
-            )
+                String.format(
+                        "jdbc:postgresql://%s:%s/%s?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC",
+                        host,
+                        port,
+                        databaseName
+                )
         );
         dataSource.setUsername(username);
         dataSource.setPassword(password);
 
         Resource postgresResource = resourceResolver.getResource(String.format(
-            "classpath:database/%s.sql",
-            databaseName
+                "classpath:database/%s.sql",
+                databaseName
         ));
         String postgresSentences = new Scanner(postgresResource.getInputStream(), "UTF-8").useDelimiter("\\A").next();
 
@@ -96,7 +96,7 @@ public final class HibernateConfigurationFactory {
         String[] files = new File(path).list((current, name) -> new File(current, name).isDirectory());
 
         if (null == files) {
-            path  = "./main/com/bank/" + contextName + "/";
+            path = "./main/com/bank/" + contextName + "/";
             files = new File(path).list((current, name) -> new File(current, name).isDirectory());
         }
 

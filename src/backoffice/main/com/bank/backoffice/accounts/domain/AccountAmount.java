@@ -4,10 +4,11 @@ public class AccountAmount {
 
     private Double value;
 
-    private AccountAmount( Double value ) {
+    private AccountAmount(Double value) {
 
     }
-    private AccountAmount( ) {
+
+    private AccountAmount() {
     }
 
     public Double value() {

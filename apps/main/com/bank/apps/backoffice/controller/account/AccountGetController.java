@@ -26,7 +26,6 @@ public final class AccountGetController extends ApiController {
         super(queryBus, commandBus);
     }
 
-
     @GetMapping("{id}")
     public ResponseEntity<?> find(@PathVariable String id) {
         final AccountResponse accountResponse = ask(new FindAccountQuery(id));

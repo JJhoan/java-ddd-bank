@@ -10,10 +10,10 @@ public final class DomainEventSubscriberInformation {
     private final List<Class<? extends DomainEvent>> subscribedEvents;
 
     public DomainEventSubscriberInformation(
-        Class<?> subscriberClass,
-        List<Class<? extends DomainEvent>> subscribedEvents
+            Class<?> subscriberClass,
+            List<Class<? extends DomainEvent>> subscribedEvents
     ) {
-        this.subscriberClass  = subscriberClass;
+        this.subscriberClass = subscriberClass;
         this.subscribedEvents = subscribedEvents;
     }
 

@@ -14,7 +14,7 @@ public final class InMemoryCommandBus implements CommandBus {
 
     public InMemoryCommandBus(CommandHandlersInformation information, ApplicationContext context) {
         this.information = information;
-        this.context     = context;
+        this.context = context;
     }
 
     @Override

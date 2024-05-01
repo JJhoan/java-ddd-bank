@@ -11,7 +11,7 @@ public final class InMemoryQueryBus implements QueryBus {
 
     public InMemoryQueryBus(QueryHandlersInformation information, ApplicationContext context) {
         this.information = information;
-        this.context     = context;
+        this.context = context;
     }
 
     @Override

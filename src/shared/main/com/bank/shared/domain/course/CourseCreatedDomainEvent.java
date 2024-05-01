@@ -14,27 +14,27 @@ public final class CourseCreatedDomainEvent extends DomainEvent {
     public CourseCreatedDomainEvent() {
         super(null);
 
-        this.name     = null;
+        this.name = null;
         this.duration = null;
     }
 
     public CourseCreatedDomainEvent(String aggregateId, String name, String duration) {
         super(aggregateId);
 
-        this.name     = name;
+        this.name = name;
         this.duration = duration;
     }
 
     public CourseCreatedDomainEvent(
-        String aggregateId,
-        String eventId,
-        String occurredOn,
-        String name,
-        String duration
+            String aggregateId,
+            String eventId,
+            String occurredOn,
+            String name,
+            String duration
     ) {
         super(aggregateId, eventId, occurredOn);
 
-        this.name     = name;
+        this.name = name;
         this.duration = duration;
     }
 
@@ -53,17 +53,17 @@ public final class CourseCreatedDomainEvent extends DomainEvent {
 
     @Override
     public CourseCreatedDomainEvent fromPrimitives(
-        String aggregateId,
-        HashMap<String, Serializable> body,
-        String eventId,
-        String occurredOn
+            String aggregateId,
+            HashMap<String, Serializable> body,
+            String eventId,
+            String occurredOn
     ) {
         return new CourseCreatedDomainEvent(
-            aggregateId,
-            eventId,
-            occurredOn,
-            (String) body.get("name"),
-            (String) body.get("duration")
+                aggregateId,
+                eventId,
+                occurredOn,
+                (String) body.get("name"),
+                (String) body.get("duration")
         );
     }
 
@@ -85,7 +85,7 @@ public final class CourseCreatedDomainEvent extends DomainEvent {
         }
         CourseCreatedDomainEvent that = (CourseCreatedDomainEvent) o;
         return name.equals(that.name) &&
-               duration.equals(that.duration);
+                duration.equals(that.duration);
     }
 
     @Override

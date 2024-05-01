@@ -15,17 +15,17 @@ import java.util.Optional;
 @Transactional("backoffice-transaction_manager")
 public class PostgrestAccountRepository extends HibernateRepository<Account> implements AccountRepository {
 
-    public PostgrestAccountRepository(@Qualifier("backoffice-session_factory") SessionFactory sessionFactory ) {
+    public PostgrestAccountRepository(@Qualifier("backoffice-session_factory") SessionFactory sessionFactory) {
         super(sessionFactory, Account.class);
     }
 
     @Override
-    public void save( Account account ) {
-        save( account );
+    public void save(Account account) {
+        save(account);
     }
 
     @Override
-    public Optional<Account> search( AccountId id ) {
-        return byId( id );
+    public Optional<Account> search(AccountId id) {
+        return byId(id);
     }
 }

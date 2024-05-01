@@ -30,15 +30,15 @@ public final class MySqlEventBus implements EventBus {
         String                        occurredOn  = domainEvent.occurredOn();
 
         NativeQuery query = sessionFactory.getCurrentSession().createNativeQuery(
-            "INSERT INTO domain_events (id,  aggregate_id, name,  body,  occurred_on) " +
-            "VALUES (:id, :aggregateId, :name, :body, :occurredOn);"
+                "INSERT INTO domain_events (id,  aggregate_id, name,  body,  occurred_on) " +
+                        "VALUES (:id, :aggregateId, :name, :body, :occurredOn);"
         );
 
         query.setParameter("id", id)
-             .setParameter("aggregateId", aggregateId)
-             .setParameter("name", name)
-             .setParameter("body", Utils.jsonEncode(body))
-             .setParameter("occurredOn", occurredOn);
+                .setParameter("aggregateId", aggregateId)
+                .setParameter("name", name)
+                .setParameter("body", Utils.jsonEncode(body))
+                .setParameter("occurredOn", occurredOn);
 
         query.executeUpdate();
     }

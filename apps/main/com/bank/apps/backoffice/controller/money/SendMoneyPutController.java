@@ -16,8 +16,8 @@ public class SendMoneyPutController {
     }
 
     private static class SendMoneyResponse {
-        private final Integer from;
-        private final Integer to;
+        private final Integer    from;
+        private final Integer    to;
         private final BigDecimal money;
 
         public SendMoneyResponse(Integer from, Integer to, BigDecimal money) {

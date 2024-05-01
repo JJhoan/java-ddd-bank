@@ -26,19 +26,19 @@ public final class DomainEventJsonDeserializer {
         DomainEvent nullInstance = domainEventClass.getConstructor().newInstance();
 
         Method fromPrimitivesMethod = domainEventClass.getMethod(
-            "fromPrimitives",
-            String.class,
-            HashMap.class,
-            String.class,
-            String.class
+                "fromPrimitives",
+                String.class,
+                HashMap.class,
+                String.class,
+                String.class
         );
 
         Object domainEvent = fromPrimitivesMethod.invoke(
-            nullInstance,
-            (String) attributes.get("id"),
-            attributes,
-            (String) data.get("id"),
-            (String) data.get("occurred_on")
+                nullInstance,
+                (String) attributes.get("id"),
+                attributes,
+                (String) data.get("id"),
+                (String) data.get("occurred_on")
         );
 
         return (DomainEvent) domainEvent;

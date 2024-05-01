@@ -45,8 +45,8 @@ public final class BasicHttpAuthMiddleware implements Filter {
             ServletResponse response
     ) throws IOException, ServletException {
         String[] auth = decodeAuth(authorizationHeader);
-        String user = auth[0];
-        String pass = auth[1];
+        String   user = auth[0];
+        String   pass = auth[1];
 
         try {
             bus.dispatch(new AuthenticateUserCommand(user, pass));

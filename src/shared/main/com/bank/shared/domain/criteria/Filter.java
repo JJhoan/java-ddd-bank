@@ -8,24 +8,24 @@ public final class Filter {
     private final FilterValue    value;
 
     public Filter(FilterField field, FilterOperator operator, FilterValue value) {
-        this.field    = field;
+        this.field = field;
         this.operator = operator;
-        this.value    = value;
+        this.value = value;
     }
 
     public static Filter create(String field, String operator, String value) {
         return new Filter(
-            new FilterField(field),
-            FilterOperator.fromValue(operator.toUpperCase()),
-            new FilterValue(value)
+                new FilterField(field),
+                FilterOperator.fromValue(operator.toUpperCase()),
+                new FilterValue(value)
         );
     }
 
     public static Filter fromValues(HashMap<String, String> values) {
         return new Filter(
-            new FilterField(values.get("field")),
-            FilterOperator.fromValue(values.get("operator")),
-            new FilterValue(values.get("value"))
+                new FilterField(values.get("field")),
+                FilterOperator.fromValue(values.get("operator")),
+                new FilterValue(values.get("value"))
         );
     }
 

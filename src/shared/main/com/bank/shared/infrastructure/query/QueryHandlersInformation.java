@@ -32,7 +32,7 @@ public final class QueryHandlersInformation {
     }
 
     private HashMap<Class<? extends Query>, Class<? extends QueryHandler>> formatHandlers(
-        Set<Class<? extends QueryHandler>> queryHandlers
+            Set<Class<? extends QueryHandler>> queryHandlers
     ) {
         HashMap<Class<? extends Query>, Class<? extends QueryHandler>> handlers = new HashMap<>();
 

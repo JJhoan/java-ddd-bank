@@ -20,7 +20,8 @@ public final class DomainEventsInformation {
 
         try {
             indexedDomainEvents = formatEvents(classes);
-        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException |
+                 InvocationTargetException e) {
             e.printStackTrace();
         }
     }
@@ -31,14 +32,14 @@ public final class DomainEventsInformation {
 
     public String forClass(Class<? extends DomainEvent> domainEventClass) {
         return indexedDomainEvents.entrySet()
-                                  .stream()
-                                  .filter(entry -> Objects.equals(entry.getValue(), domainEventClass))
-                                  .map(Map.Entry::getKey)
-                                  .findFirst().orElse("");
+                .stream()
+                .filter(entry -> Objects.equals(entry.getValue(), domainEventClass))
+                .map(Map.Entry::getKey)
+                .findFirst().orElse("");
     }
 
     private HashMap<String, Class<? extends DomainEvent>> formatEvents(
-        Set<Class<? extends DomainEvent>> domainEvents
+            Set<Class<? extends DomainEvent>> domainEvents
     ) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         HashMap<String, Class<? extends DomainEvent>> events = new HashMap<>();
 

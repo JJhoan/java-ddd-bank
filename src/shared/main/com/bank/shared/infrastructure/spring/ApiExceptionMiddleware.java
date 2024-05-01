@@ -30,8 +30,12 @@ public final class ApiExceptionMiddleware implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = ((HttpServletRequest) request);
+    public void doFilter(
+            ServletRequest request,
+            ServletResponse response,
+            FilterChain chain
+    ) throws IOException, ServletException {
+        HttpServletRequest  httpRequest  = ((HttpServletRequest) request);
         HttpServletResponse httpResponse = ((HttpServletResponse) response);
 
         try {
@@ -58,26 +62,27 @@ public final class ApiExceptionMiddleware implements Filter {
             ApiController possibleController,
             ServletException exception
     ) throws IOException {
-        HashMap<Class<? extends DomainError>, HttpStatus> errorMapping = possibleController
-                .errorMapping();
+        HashMap<Class<? extends DomainError>, HttpStatus> errorMapping = possibleController.errorMapping();
         Throwable error = (
                 exception.getCause() instanceof CommandHandlerExecutionError ||
                         exception.getCause() instanceof QueryHandlerExecutionError
         ) ? exception.getCause().getCause() : exception.getCause();
 
-        int statusCode = statusFor(errorMapping, error);
-        String errorCode = errorCodeFor(error);
+        int    statusCode   = statusFor(errorMapping, error);
+        String errorCode    = errorCodeFor(error);
         String errorMessage = error.getMessage();
 
         httpResponse.reset();
         httpResponse.setHeader("Content-Type", "application/json");
         httpResponse.setStatus(statusCode);
+
         PrintWriter writer = response.getWriter();
         writer.write(String.format(
                 "{\"error_code\": \"%s\", \"message\": \"%s\"}",
                 errorCode,
                 errorMessage
         ));
+
         writer.close();
     }
 

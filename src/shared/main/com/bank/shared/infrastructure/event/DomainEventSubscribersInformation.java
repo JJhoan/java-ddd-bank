@@ -31,8 +31,8 @@ public final class DomainEventSubscribersInformation {
             DomainEventSubscriber annotation = subscriberClass.getAnnotation(DomainEventSubscriber.class);
 
             subscribersInformation.put(
-                subscriberClass,
-                new DomainEventSubscriberInformation(subscriberClass, Arrays.asList(annotation.value()))
+                    subscriberClass,
+                    new DomainEventSubscriberInformation(subscriberClass, Arrays.asList(annotation.value()))
             );
         }
 
@@ -45,9 +45,9 @@ public final class DomainEventSubscribersInformation {
 
     public String[] rabbitMqFormattedNames() {
         return information.values()
-                          .stream()
-                          .map(DomainEventSubscriberInformation::formatRabbitMqQueueName)
-                          .distinct()
-                          .toArray(String[]::new);
+                .stream()
+                .map(DomainEventSubscriberInformation::formatRabbitMqQueueName)
+                .distinct()
+                .toArray(String[]::new);
     }
 }

@@ -14,8 +14,8 @@ public class Starter {
             throw new RuntimeException("There are not enough arguments");
         }
 
-        String  applicationName = args[0];
-        String  commandName     = args[1];
+        String applicationName = args[0];
+        String commandName     = args[1];
         //boolean isServerCommand = commandName.equals("server");
 
         ensureApplicationExist(applicationName);
@@ -31,9 +31,9 @@ public class Starter {
     private static void ensureApplicationExist(String applicationName) {
         if (!applications().containsKey(applicationName)) {
             throw new RuntimeException(String.format(
-                "The application <%s> doesn't exist. Valids:\n- %s",
-                applicationName,
-                String.join("\n- ", applications().keySet())
+                    "The application <%s> doesn't exist. Valids:\n- %s",
+                    applicationName,
+                    String.join("\n- ", applications().keySet())
             ));
         }
     }
@@ -41,10 +41,10 @@ public class Starter {
     private static void ensureCommandExist(String applicationName, String commandName) {
         if (!"server".equals(commandName) && !existCommand(applicationName, commandName)) {
             throw new RuntimeException(String.format(
-                "The command <%s> for application <%s> doesn't exist. Valids (application.command):\n- api\n- %s",
-                commandName,
-                applicationName,
-                String.join("\n- ", commands().get(applicationName).keySet())
+                    "The command <%s> for application <%s> doesn't exist. Valids (application.command):\n- api\n- %s",
+                    commandName,
+                    applicationName,
+                    String.join("\n- ", commands().get(applicationName).keySet())
             ));
         }
     }
