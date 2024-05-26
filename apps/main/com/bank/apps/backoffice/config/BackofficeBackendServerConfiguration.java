@@ -3,9 +3,13 @@ package com.bank.apps.backoffice.config;
 import com.bank.apps.backoffice.middleware.BasicHttpAuthMiddleware;
 import com.bank.shared.domain.bus.command.CommandBus;
 import com.bank.shared.infrastructure.spring.ApiExceptionMiddleware;
+import jakarta.annotation.PostConstruct;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.context.event.SimpleApplicationEventMulticaster;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 @Configuration
@@ -19,7 +23,9 @@ public class BackofficeBackendServerConfiguration {
         this.mapping = mapping;
     }
 
-    @Bean
+}
+
+    /*@Bean
     public FilterRegistrationBean<ApiExceptionMiddleware> basicHttpAuthMiddleware() {
         FilterRegistrationBean<ApiExceptionMiddleware> registrationBean = new FilterRegistrationBean<>();
 
@@ -29,5 +35,5 @@ public class BackofficeBackendServerConfiguration {
         //registrationBean.addUrlPatterns("/api/accounts/*");
 
         return registrationBean;
-    }
-}
+    }*/
+

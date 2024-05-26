@@ -122,7 +122,7 @@ public final class HibernateConfigurationFactory {
     private Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(AvailableSettings.HBM2DDL_AUTO, "none");
-        hibernateProperties.put(AvailableSettings.SHOW_SQL, "false");
+        hibernateProperties.put(AvailableSettings.SHOW_SQL, "true");
         hibernateProperties.put(AvailableSettings.TRANSFORM_HBM_XML, "true");
 
         return hibernateProperties;

@@ -7,7 +7,7 @@ import com.bank.shared.domain.Service;
 import com.bank.shared.domain.bus.query.QueryHandler;
 
 @Service
-public class FindAccountQueryHandler implements QueryHandler<FindAccountQuery, AccountResponse> {
+class FindAccountQueryHandler implements QueryHandler<FindAccountQuery, AccountResponse> {
 
     private final AccountFinder finder;
 

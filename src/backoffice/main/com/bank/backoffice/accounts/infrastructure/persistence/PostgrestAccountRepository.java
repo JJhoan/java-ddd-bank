@@ -21,7 +21,7 @@ public class PostgrestAccountRepository extends HibernateRepository<Account> imp
 
     @Override
     public void save(Account account) {
-        save(account);
+        persist(account);
     }
 
     @Override

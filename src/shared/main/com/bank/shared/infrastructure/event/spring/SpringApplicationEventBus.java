@@ -5,6 +5,9 @@ import com.bank.shared.domain.bus.event.DomainEvent;
 import com.bank.shared.domain.bus.event.EventBus;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.scheduling.annotation.Async;
+
 
 import java.util.List;
 
@@ -23,6 +26,6 @@ public class SpringApplicationEventBus implements EventBus {
     }
 
     private void publish(final DomainEvent event) {
-        this.publisher.publishEvent(event);
+        publisher.publishEvent(event);
     }
 }

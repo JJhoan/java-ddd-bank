@@ -14,7 +14,7 @@
         </component>
 
         <component name="amount" class="com.bank.backoffice.accounts.domain.AccountAmount" access="field">
-            <property name="value" column="amount" type="double" access="field"/>
+            <property name="value" column="amount" type="big_decimal" access="field"/>
         </component>
     </class>
 </hibernate-mapping>

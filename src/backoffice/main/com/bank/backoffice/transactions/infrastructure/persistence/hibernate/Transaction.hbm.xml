@@ -1,0 +1,24 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.bank.backoffice.transactions.domain.Transaction" table="transactions">
+        <composite-id name="id" class="com.bank.backoffice.transactions.domain.TransactionId" access="field">
+            <key-property name="value" column="id" length="36" access="field"/>
+        </composite-id>
+
+        <component name="from" class="com.bank.backoffice.transactions.domain.TransactionAccountId" access="field">
+            <property name="value" column="account_from" type="string" access="field"/>
+        </component>
+
+        <component name="to" class="com.bank.backoffice.transactions.domain.TransactionAccountId" access="field">
+            <property name="value" column="account_to" type="string" access="field"/>
+        </component>
+
+        <component name="amount" class="com.bank.backoffice.transactions.domain.TransactionAmount" access="field">
+            <property name="value" column="amount" type="big_decimal" access="field"/>
+        </component>
+    </class>
+</hibernate-mapping>

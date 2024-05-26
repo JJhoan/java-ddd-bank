@@ -1,4 +1,4 @@
-package com.bank.apps.backoffice.controller.account;
+package com.bank.apps.backoffice.controller.accounts;
 
 import com.bank.backoffice.accounts.application.AccountResponse;
 import com.bank.backoffice.accounts.application.find.FindAccountQuery;
@@ -28,7 +28,9 @@ public final class AccountGetController extends ApiController {
 
     @GetMapping("{id}")
     public ResponseEntity<?> find(@PathVariable String id) {
+
         final AccountResponse accountResponse = ask(new FindAccountQuery(id));
+
         return ResponseEntity.ok(accountResponse);
     }
 

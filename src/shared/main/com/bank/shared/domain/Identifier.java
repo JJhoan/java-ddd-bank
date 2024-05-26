@@ -38,6 +38,13 @@ public abstract class Identifier implements Serializable {
         return Objects.hash(value);
     }
 
+    @Override
+    public String toString() {
+        return "Identifier{" +
+                "value='" + value + '\'' +
+                '}';
+    }
+
     private void ensureValidUuid(String value) throws IllegalArgumentException {
         UUID.fromString(value);
     }

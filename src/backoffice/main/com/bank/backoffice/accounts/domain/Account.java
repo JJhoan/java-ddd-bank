@@ -1,53 +1,56 @@
 package com.bank.backoffice.accounts.domain;
 
-import java.util.Objects;
+import com.bank.shared.domain.AggregateRoot;
+import com.bank.shared.domain.account.AccountAmountDepositedDomainEvent;
+import com.bank.shared.domain.account.AccountAmountWithdrawnDomainEvent;
+import com.bank.shared.domain.account.AccountCreatedDomainEvent;
+import lombok.EqualsAndHashCode;
+import lombok.Value;
+import lombok.experimental.Accessors;
+import lombok.experimental.NonFinal;
 
-public final class Account {
 
-    private final AccountId     id;
-    private final AccountNumber number;
-    private final AccountAmount amount;
+@Value
+@Accessors(fluent = true)
+@EqualsAndHashCode(callSuper = false)
+public class Account extends AggregateRoot {
 
-    public Account(AccountId id, AccountNumber number, AccountAmount amount) {
-        this.id = id;
-        this.number = number;
-        this.amount = amount;
+    AccountId     id;
+    AccountNumber number;
+    @NonFinal AccountAmount amount;
+
+    public static Account create(AccountId id, AccountNumber number, AccountAmount amount) {
+        final Account account = new Account(id, number, amount);
+
+        account.record(
+                new AccountCreatedDomainEvent(
+                        account.id().value(),
+                        account.number().value(),
+                        account.amount().value()
+                )
+        );
+
+        return account;
     }
 
-    private Account() {
-        id = null;
-        number = null;
-        amount = null;
-    }
-
-    public AccountId id() {
-        return id;
-    }
-
-    public AccountNumber number() {
-        return number;
-    }
-
-    public AccountAmount amount() {
-        return amount;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    public void withdraw(AccountAmount amount) {
+        if (!mayWithdraw(amount)) {
+            throw new AccountInsufficientFunds(number);
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Account account = (Account) o;
-        return Objects.equals(id, account.id) &&
-                Objects.equals(number, account.number) &&
-                Objects.equals(amount, account.amount);
+
+        this.amount = AccountAmount.subtract(this.amount, amount);
+
+        record(new AccountAmountWithdrawnDomainEvent(id.value(), amount.value()));
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, number, amount);
+    public void deposit(AccountAmount amount) {
+        this.amount = AccountAmount.add(this.amount, amount);
+
+        record(new AccountAmountDepositedDomainEvent(id.value(), amount.value()));
     }
+
+    private boolean mayWithdraw(AccountAmount amount) {
+        return AccountAmount.subtract(this.amount, amount).isPositiveOrZero();
+    }
+
 }

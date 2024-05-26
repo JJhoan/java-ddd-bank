@@ -18,7 +18,8 @@ allprojects {
     }
 
     dependencies {
-        compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.32'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
 
         implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.17.0'
         implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
@@ -65,6 +66,14 @@ subprojects {
             implementation project(":shared")
             testImplementation project(":shared").sourceSets.test.output
         }
+    }
+
+    bootJar {
+        enabled = false
+    }
+
+    jar {
+        enabled = true
     }
 }
 
