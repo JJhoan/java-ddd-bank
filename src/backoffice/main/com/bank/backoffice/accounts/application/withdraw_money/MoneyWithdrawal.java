@@ -7,24 +7,14 @@ import com.bank.shared.domain.bus.event.EventBus;
 @UseCase
 public final class MoneyWithdrawal {
 
-    private final AccountRepository repository;
-    private final EventBus eventBus;
-    private final AccountFinderDomain finder;
+    private final MoneyWithdrawalDomain withdrawalDomain;
 
-    public MoneyWithdrawal(AccountRepository repository, EventBus eventBus) {
-        this.repository = repository;
-        this.eventBus = eventBus;
-        this.finder = new AccountFinderDomain(repository);
+    public MoneyWithdrawal(AccountRepository repository, EventBus eventBus
+    ) {
+        this.withdrawalDomain = new MoneyWithdrawalDomain(repository, eventBus);
     }
 
     public void withdraw(AccountId id, AccountAmount amount) {
-        final var account = finder.find(id);
-
-        account.withdraw(amount);
-
-        repository.save(account);
-        eventBus.publish(account.pullDomainEvents());
-
-        System.out.println(String.format("Account withdraw -> %s", account));
+        withdrawalDomain.withdraw(id, amount);
     }
 }

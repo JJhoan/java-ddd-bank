@@ -1,29 +1,28 @@
 package com.bank.backoffice.accounts.application.send_money;
 
-import com.bank.backoffice.accounts.domain.*;
+import com.bank.backoffice.accounts.domain.AccountAmount;
+import com.bank.backoffice.accounts.domain.AccountId;
+import com.bank.backoffice.accounts.domain.AccountRepository;
+import com.bank.backoffice.accounts.domain.MoneyDepositorDomain;
+import com.bank.backoffice.accounts.domain.MoneyWithdrawalDomain;
 import com.bank.shared.domain.UseCase;
 import com.bank.shared.domain.bus.event.EventBus;
+import jakarta.transaction.Transactional;
 
 @UseCase
 public final class MoneySender {
 
-    private final EventBus            bus;
-    private final AccountFinderDomain finder;
+    private final MoneyWithdrawalDomain withdrawal;
+    private final MoneyDepositorDomain  depositor;
 
-    private MoneySender(AccountRepository repository, EventBus bus) {
-        this.bus = bus;
-        this.finder = new AccountFinderDomain(repository);
+    private MoneySender(AccountRepository repository, EventBus eventBus) {
+        this.withdrawal = new MoneyWithdrawalDomain(repository, eventBus);
+        this.depositor = new MoneyDepositorDomain(repository, eventBus);
     }
 
+    @Transactional
     public void send(AccountId sourceAccountId, AccountId targetAccountId, AccountAmount amount) {
-
-        Account sourceAccount = finder.find(sourceAccountId);
-        Account targetAccount = finder.find(targetAccountId);
-
-        sourceAccount.withdraw(amount);
-        targetAccount.deposit(amount);
-
-        bus.publish(sourceAccount.pullDomainEvents());
-        bus.publish(targetAccount.pullDomainEvents());
+        withdrawal.withdraw(sourceAccountId, amount);
+        depositor.deposit(targetAccountId, amount);
     }
 }
