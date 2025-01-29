@@ -4,6 +4,7 @@ import com.bank.shared.domain.AggregateRoot;
 import com.bank.shared.domain.account.AccountAmountDepositedDomainEvent;
 import com.bank.shared.domain.account.AccountAmountWithdrawnDomainEvent;
 import com.bank.shared.domain.account.AccountCreatedDomainEvent;
+import com.bank.shared.domain.account.AccountSenderMoneyDomainEvent;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import lombok.experimental.Accessors;
@@ -15,9 +16,22 @@ import lombok.experimental.NonFinal;
 @EqualsAndHashCode(callSuper = false)
 public class Account extends AggregateRoot {
 
-    AccountId     id;
+    AccountId id;
     AccountNumber number;
-    @NonFinal AccountAmount amount;
+    @NonFinal
+    AccountAmount amount;
+
+    public Account() {
+        this.id = null;
+        this.number = null;
+        this.amount = null;
+    }
+
+    public Account(AccountId id, AccountNumber number, AccountAmount amount) {
+        this.id = id;
+        this.number = number;
+        this.amount = amount;
+    }
 
     public static Account create(AccountId id, AccountNumber number, AccountAmount amount) {
         final Account account = new Account(id, number, amount);
@@ -34,23 +48,32 @@ public class Account extends AggregateRoot {
     }
 
     public void withdraw(AccountAmount amount) {
-        if (!mayWithdraw(amount)) {
-            throw new AccountInsufficientFunds(number);
-        }
+        ensureCanWithdraw(amount);
 
         this.amount = AccountAmount.subtract(this.amount, amount);
 
         record(new AccountAmountWithdrawnDomainEvent(id.value(), amount.value()));
     }
 
-    public void deposit(AccountAmount amount) {
+    public void send(AccountAmount amount, AccountId target) {
+        ensureCanWithdraw(amount);
+
+        this.amount = AccountAmount.subtract(this.amount, amount);
+
+        record(new AccountSenderMoneyDomainEvent(id.value(), this.id.value(), target.value(), amount.value().doubleValue()));
+    }
+
+    public void deposit(AccountAmount amount, AccountId sourceAccountId) {
         this.amount = AccountAmount.add(this.amount, amount);
 
-        record(new AccountAmountDepositedDomainEvent(id.value(), amount.value()));
+        record(new AccountAmountDepositedDomainEvent(id.value(), sourceAccountId.value(), this.id.value(), amount.value().doubleValue()));
     }
 
-    private boolean mayWithdraw(AccountAmount amount) {
-        return AccountAmount.subtract(this.amount, amount).isPositiveOrZero();
-    }
+    private void ensureCanWithdraw(AccountAmount amount) {
+        if (AccountAmount.subtract(this.amount, amount).isPositiveOrZero()) {
+            return;
+        }
 
+        throw new AccountInsufficientFunds(number);
+    }
 }

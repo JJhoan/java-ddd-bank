@@ -7,39 +7,39 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-public class AccountAmountDepositedDomainEvent extends DomainEvent {
+
+public class AccountSenderMoneyDomainEvent extends DomainEvent {
 
     private final String sourceAccountId;
     private final String targetAccountId;
     private final Double amount;
 
-    public AccountAmountDepositedDomainEvent(String aggregateId, String sourceAccountId, String targetAccountId, Double amount) {
+    public AccountSenderMoneyDomainEvent(String aggregateId, String sourceAccountId, String targetAccountId, Double amount) {
         super(aggregateId);
-
+        this.amount = amount;
         this.sourceAccountId = sourceAccountId;
         this.targetAccountId = targetAccountId;
-        this.amount = amount;
     }
 
 
-    public AccountAmountDepositedDomainEvent() {
+    public AccountSenderMoneyDomainEvent() {
         super(null);
 
+        this.amount = null;
         this.sourceAccountId = null;
         this.targetAccountId = null;
-        this.amount = null;
     }
-
-   public String sourceAccountId() {
-       return sourceAccountId;
-   }
-
-   public String targetAccountId() {
-       return targetAccountId;
-   }
 
     public Double amount() {
         return amount;
+    }
+
+    public String sourceAccountId() {
+        return sourceAccountId;
+    }
+
+    public String targetAccountId() {
+        return targetAccountId;
     }
 
     @Override

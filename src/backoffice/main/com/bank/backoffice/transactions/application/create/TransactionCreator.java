@@ -24,7 +24,6 @@ final class TransactionCreator {
                 command.amount());
 
         repository.save(transaction);
-
         eventBus.publish(transaction.pullDomainEvents());
     }
 }

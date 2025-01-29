@@ -19,9 +19,4 @@ public class WithdrawMoneyOnTransactionCreated {
         this.withdrawal = withdrawal;
     }
 
-    @EventListener
-    @Async
-    public void on(TransactionCreatedDomainEvent event) {
-        withdrawal.withdraw(new AccountId(event.targetAccount()), AccountAmount.of(event.amount()));
-    }
 }

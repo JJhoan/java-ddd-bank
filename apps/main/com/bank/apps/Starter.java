@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class Starter {
     public static void main(String[] args) {
+        System.out.println("================== " + (args.length < 2));
         if (args.length < 2) {
             throw new RuntimeException("There are not enough arguments");
         }

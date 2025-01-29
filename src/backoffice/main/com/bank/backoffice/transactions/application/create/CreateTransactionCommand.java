@@ -25,4 +25,5 @@ public record CreateTransactionCommand(TransactionId id,
 
         return new CreateTransactionCommand(id, sourceAccount, targetAccount, transactionAmount);
     }
+
 }

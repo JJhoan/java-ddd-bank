@@ -5,15 +5,15 @@ import java.math.BigDecimal;
 public record TransactionAmount(BigDecimal value) {
 
     public TransactionAmount(BigDecimal value) {
-        if (value.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Amount cannot be null");
-        }
-
         this.value = value;
     }
 
     public static TransactionAmount from(Double value) {
         return new TransactionAmount(BigDecimal.valueOf(value));
+    }
+
+    public static TransactionAmount negative(Double value) {
+        return new TransactionAmount(BigDecimal.valueOf(value).negate());
     }
 
     public TransactionAmount subtract(TransactionAmount amount) {

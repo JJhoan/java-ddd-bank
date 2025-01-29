@@ -10,7 +10,7 @@ public final class SendMoneyCommandHandler implements CommandHandler<SendMoneyCo
 
     private final MoneySender sender;
 
-    private SendMoneyCommandHandler(MoneySender sender) {
+    public SendMoneyCommandHandler(MoneySender sender) {
         this.sender = sender;
     }
 
