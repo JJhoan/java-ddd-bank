@@ -15,8 +15,8 @@ public final class AccountCreator {
         this.bus = bus;
     }
 
-    public void create(AccountId id, AccountNumber number, AccountAmount amount) {
-        final Account account = Account.create(id, number, amount);
+    public void create(AccountId id, AccountNumber number, AccountAmount amount, AccountEmail email) {
+        final Account account = Account.create(id, number, amount, email);
 
         repository.save(account);
         bus.publish(account.pullDomainEvents());

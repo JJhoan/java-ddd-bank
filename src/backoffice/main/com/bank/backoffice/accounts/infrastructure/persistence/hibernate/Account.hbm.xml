@@ -16,5 +16,9 @@
         <component name="amount" class="com.bank.backoffice.accounts.domain.AccountAmount" access="field">
             <property name="value" column="amount" type="big_decimal" access="field"/>
         </component>
+
+        <component name="email" class="com.bank.backoffice.accounts.domain.AccountEmail" access="field">
+            <property name="value" column="email" type="string" access="field"/>
+        </component>
     </class>
 </hibernate-mapping>

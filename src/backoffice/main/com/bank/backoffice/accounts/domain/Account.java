@@ -16,25 +16,28 @@ import lombok.experimental.NonFinal;
 @EqualsAndHashCode(callSuper = false)
 public class Account extends AggregateRoot {
 
-    AccountId id;
+    AccountId     id;
     AccountNumber number;
     @NonFinal
     AccountAmount amount;
+    AccountEmail email;
 
     public Account() {
+        this.email = null;
         this.id = null;
         this.number = null;
         this.amount = null;
     }
 
-    public Account(AccountId id, AccountNumber number, AccountAmount amount) {
+    public Account(AccountId id, AccountNumber number, AccountAmount amount, AccountEmail email) {
         this.id = id;
         this.number = number;
         this.amount = amount;
+        this.email = email;
     }
 
-    public static Account create(AccountId id, AccountNumber number, AccountAmount amount) {
-        final Account account = new Account(id, number, amount);
+    public static Account create(AccountId id, AccountNumber number, AccountAmount amount, AccountEmail email) {
+        final Account account = new Account(id, number, amount, email);
 
         account.record(
                 new AccountCreatedDomainEvent(

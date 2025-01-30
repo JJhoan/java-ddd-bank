@@ -1,10 +1,8 @@
 package com.bank.shared.domain.account;
 
-
 import com.bank.shared.domain.bus.event.DomainEvent;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class AccountAmountDepositedDomainEvent extends DomainEvent {

@@ -26,7 +26,7 @@ public final class AccountPostController extends ApiController {
 
     @PostMapping
     public void index(@RequestBody CreateAccountRequest request) {
-        dispatch(new CreateAccountCommand(request.id(), request.number(), request.amount()));
+        dispatch(new CreateAccountCommand(request.id(), request.number(), request.amount(), request.email));
     }
 
     @Override
@@ -34,6 +34,5 @@ public final class AccountPostController extends ApiController {
         return Maps.newHashMap(Map.of(AccountNotExist.class, HttpStatus.NOT_FOUND));
     }
 
-    public record CreateAccountRequest(String id, String number, Double amount) {}
+    public record CreateAccountRequest(String id, String number, Double amount, String email) {}
 }
-//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
