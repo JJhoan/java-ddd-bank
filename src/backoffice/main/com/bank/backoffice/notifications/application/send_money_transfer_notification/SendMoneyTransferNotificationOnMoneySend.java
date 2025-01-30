@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Async;
 @DomainEventSubscriber({
         AccountSenderMoneyDomainEvent.class
 })
+//TODO: Change name for transfer
 public class SendMoneyTransferNotificationOnMoneySend {
 
     private final MoneyTransferNotificationSender sender;

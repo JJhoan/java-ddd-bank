@@ -4,7 +4,7 @@ import com.bank.backoffice.accounts.application.AccountResponse;
 import com.bank.backoffice.accounts.application.find.FindAccountQuery;
 import com.bank.backoffice.notifications.domain.Email;
 import com.bank.backoffice.notifications.domain.EmailSender;
-import com.bank.backoffice.notifications.domain.MoneyReceivedNotification;
+import com.bank.backoffice.notifications.domain.MoneyTransferNotificationReceived;
 import com.bank.shared.domain.UseCase;
 import com.bank.shared.domain.bus.event.EventBus;
 import com.bank.shared.domain.bus.query.QueryBus;
@@ -26,7 +26,7 @@ public final class MoneyReceivedNotificationSender {
         final AccountResponse accountFrom = queryBus.ask(new FindAccountQuery(accountIdFrom));
         final AccountResponse accountTo = queryBus.ask(new FindAccountQuery(accountIdTo));
 
-        final Email email = MoneyReceivedNotification.send(accountFrom.id(), accountFrom.number(), amount, accountTo.email());
+        final Email email = MoneyTransferNotificationReceived.send(accountFrom.id(), accountFrom.number(), amount, accountTo.email());
 
         System.out.println(email);
         sender.send(email);

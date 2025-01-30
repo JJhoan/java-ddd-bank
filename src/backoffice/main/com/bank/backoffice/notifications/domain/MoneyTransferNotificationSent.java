@@ -1,12 +1,12 @@
 package com.bank.backoffice.notifications.domain;
 
-public class MoneyReceivedNotification extends Email {
+public class MoneyTransferNotificationSent extends Email {
 
     private final String accountNumberFrom;
     private final Double amount;
 
-    public MoneyReceivedNotification(EmailId id, String accountNumberFrom, Double amount, String from) {
-        super(id, "MS_FTXFcP@trial-pq3enl6zdk042vwr.mlsender.net", from, "Notificación: Se ha realizado una transferencia desde tu cuenta", formatBody(accountNumberFrom, amount));
+    public MoneyTransferNotificationSent(EmailId id, String accountNumberFrom, Double amount, String to) {
+        super(id, "pepito@yahoo.com", to, "Notificación: Se ha realizado una transferencia desde tu cuenta", formatBody(accountNumberFrom, amount));
 
         this.accountNumberFrom = accountNumberFrom;
         this.amount = amount;
@@ -17,9 +17,9 @@ public class MoneyReceivedNotification extends Email {
                 <!DOCTYPE html>
                 <html>
                 <head>
-                    <meta charset=\"UTF-8\">
-                    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
-                    <title>Notificación de Pago Recibido</title>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Notificación de Transferencia</title>
                     <style>
                         body {
                             font-family: Arial, sans-serif;
@@ -36,7 +36,7 @@ public class MoneyReceivedNotification extends Email {
                             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                         }
                         .header {
-                            background-color: #28a745;
+                            background-color: #007bff;
                             color: white;
                             padding: 15px;
                             text-align: center;
@@ -56,34 +56,32 @@ public class MoneyReceivedNotification extends Email {
                             text-align: center;
                         }
                         .highlight {
-                            color: #28a745;
+                            color: #007bff;
                             font-weight: bold;
                         }
                     </style>
                 </head>
                 <body>
-                    <div class=\"container\">
-                        <div class=\"header\">Notificación de Pago Recibido</div>
-                        <div class=\"content\">
+                    <div class="container">
+                        <div class="header">Notificación de Transferencia</div>
+                        <div class="content">
                             <p>Estimado cliente,</p>
-                            <p>Ha recibido un pago en su cuenta <span class=\"highlight\">#%s</span></p>
-                            <p>por un monto de <span class=\"highlight\">$%.2f</span>.</p>
-                            <p>Puede verificar esta transacción en su cuenta bancaria.</p>
+                            <p>Se ha realizado una transferencia hacia la cuenta <span class="highlight">#%s</span></p>
+                            <p>por un monto de <span class="highlight">$%.2f</span>.</p>
+                            <p>Si no reconoce esta transacción, por favor comuníquese con nuestro soporte de inmediato.</p>
                         </div>
-                        <div class=\"footer\">&copy; 2025 Tu Banco. Todos los derechos reservados.</div>
+                        <div class="footer">&copy; 2025 Tu Banco. Todos los derechos reservados.</div>
                     </div>
                 </body>
                 </html>
                 """, accountNumberFrom, amount);
-
     }
 
-    public static MoneyReceivedNotification send(String id, String accountNumberFrom, Double amount, String from) {
-        MoneyReceivedNotification newsletter = new MoneyReceivedNotification(new EmailId(id), accountNumberFrom, amount, from);
+    public static MoneyTransferNotificationSent send(String id, String accountNumberFrom, Double amount, String from) {
+        MoneyTransferNotificationSent newsletter = new MoneyTransferNotificationSent(new EmailId(id), accountNumberFrom, amount, from);
 
         //newsletter.record(new ReceivedTransactionNotificationEmailSent(id, student.id()));
 
         return newsletter;
     }
-
 }
